@@ -4,7 +4,9 @@
       <app-header></app-header>
       <top-nav></top-nav>
     </el-header>
-    <router-view/>
+    <el-main>
+      <router-view/>
+    </el-main>
   </div>
 </template>
 
@@ -19,7 +21,19 @@ import TopNav from '@/components/TopNav.vue';
     TopNav,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  mounted() {
+    this.$store.subscribeAction((action, state) => {
+      switch (action.type) {
+        case 'error':
+          this.$notify.error({
+            title: 'Error',
+            message: action.payload.message,
+          });
+      }
+    });
+  }
+}
 </script>
 
 <style lang="less">
