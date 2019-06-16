@@ -1,16 +1,19 @@
 <template>
-  <div>Characters</div>
+  <div>
+    <h2>Character list</h2>
+    <el-button icon="el-icon-plus">Add</el-button>
+    <character-list></character-list>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import CharacterList from '@/components/Options/Characters/CharacterList.vue';
 
 @Component({
-  components: {},
+  components: {
+    CharacterList,
+  },
 })
-export default class Characters extends Vue {
-  mounted() {
-    this.$store.dispatch('characters/load');
-  }
-}
+export default class Characters extends Vue {}
 </script>

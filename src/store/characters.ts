@@ -15,7 +15,8 @@ const Character: Module<CharacterState, RootState> = {
     namespaced: true,
     actions: {
         async load({ commit, state }) {
-            this.commit('characters/setCharacterList', await request.get('/characters/'));
+            const response = await request.get('/characters/');
+            this.commit('characters/setCharacterList', response.characters);
         },
     },
     mutations: {

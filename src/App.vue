@@ -22,7 +22,7 @@ import TopNav from '@/components/TopNav.vue';
   },
 })
 export default class App extends Vue {
-  mounted() {
+  protected mounted() {
     this.$store.subscribeAction((action, state) => {
       switch (action.type) {
         case 'error':

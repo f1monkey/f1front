@@ -20,7 +20,7 @@ export default new Vuex.Store({
   actions: {
     error() {
       // we need it to display errors
-    }
+    },
   },
   modules: {
     characters,

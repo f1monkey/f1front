@@ -32,7 +32,7 @@ import Characters from '@/components/Options/Characters/Characters.vue';
 export default class OptionsView extends Vue {
   protected currentGroup: string = 'characters';
 
-  handleSelect(selectedGroup: string) {
+  protected handleSelect(selectedGroup: string) {
     this.currentGroup = selectedGroup;
   }
 }
