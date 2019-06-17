@@ -9,6 +9,11 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: '/callback',
+      name: 'auth-callback',
+      component: () => import(/* webpackChunkName: "auth-callback" */ './views/AuthCallback.vue'),
+    },
+    {
       path: '/',
       name: 'main',
       component: Home,

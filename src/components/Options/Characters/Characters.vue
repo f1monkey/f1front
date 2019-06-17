@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Character list</h2>
-    <el-button icon="el-icon-plus">Add</el-button>
+    <el-button icon="el-icon-plus" @click="addCharacter">Add</el-button>
     <character-list></character-list>
   </div>
 </template>
@@ -15,5 +15,9 @@ import CharacterList from '@/components/Options/Characters/CharacterList.vue';
     CharacterList,
   },
 })
-export default class Characters extends Vue {}
+export default class Characters extends Vue {
+  addCharacter() {
+    this.$store.dispatch('characters/register');
+  }
+}
 </script>

@@ -16,8 +16,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import Character from '@/store/characters';
 import { characterIcon } from '@/lib/Helper/EveImageHelper';
+import Character from '@/lib/Dto/Character';
 
 @Component({
   components: {},
@@ -39,7 +39,7 @@ export default class Characters extends Vue {
 <style lang="less" scoped>
 .character-delete-button {
   float: right;
-  margin-top: -9px;
+  margin-top: -10px;
   margin-right: -10px;
 }
 </style>
