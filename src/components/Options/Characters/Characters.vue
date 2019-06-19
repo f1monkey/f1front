@@ -16,7 +16,7 @@ import CharacterList from '@/components/Options/Characters/CharacterList.vue';
   },
 })
 export default class Characters extends Vue {
-  addCharacter() {
+  protected addCharacter() {
     this.$store.dispatch('characters/register');
   }
 }

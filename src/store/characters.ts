@@ -7,48 +7,53 @@ import Character from '@/lib/Dto/Character';
 import CharacterResponse from '@/lib/Dto/Response/Character/CharacterResponse';
 
 export interface CharacterState {
-    characters: Character[];
+  characters: Character[];
 }
 
 const CharacterModule: Module<CharacterState, RootState> = {
-    namespaced: true,
-    state: {
-        characters: []
+  namespaced: true,
+  state: {
+    characters: [],
+  },
+  actions: {
+    async load({ commit }) {
+      const response = await request.getRequest<CharacterListResponse>(
+        '/characters/'
+      );
+      commit('SET_CHARACTERS', response.characters);
     },
-    actions: {
-        async load({ commit }) {
-            const response = await request.getRequest<CharacterListResponse>('/characters/');
-            commit('SET_CHARACTERS', response.characters);
-        },
-        async delete({ commit }, payload: Character) {
-            await request.deleteRequest('/characters/' + payload.id, []);
-            commit('DELETE', payload);
-        },
-        async register() {
-            const response = await request.getRequest<GetRedirectUrlResponse>('/characters/auth/get-redirect-url/');
-            /** @todo redirect action? */
-            location.href = response.url;
-        },
-        async callback({ commit }, payload) {
-            const response = await request.postRequest<CharacterResponse>(
-                '/characters/auth/callback/', { code: payload.code }
-            );
-            commit('ADD', response.character);
-        },
+    async delete({ commit }, payload: Character) {
+      await request.deleteRequest('/characters/' + payload.id, []);
+      commit('DELETE', payload);
     },
-    mutations: {
-        ADD(state: CharacterState, payload: Character) {
-            state.characters.push(payload);
-        },
-        DELETE(state: CharacterState, payload: Character) {
-            state.characters = state.characters.filter((item: Character) => {
-                return item.id !== payload.id;
-            });
-        },
-        SET_CHARACTERS(state: CharacterState, payload: Character[]) {
-            state.characters = payload;
-        },
+    async register() {
+      const response = await request.getRequest<GetRedirectUrlResponse>(
+        '/characters/auth/get-redirect-url/'
+      );
+      /** @todo redirect action? */
+      location.href = response.url;
     },
+    async callback({ commit }, payload) {
+      const response = await request.postRequest<CharacterResponse>(
+        '/characters/auth/callback/',
+        { code: payload.code }
+      );
+      commit('ADD', response.character);
+    },
+  },
+  mutations: {
+    ADD(state: CharacterState, payload: Character) {
+      state.characters.push(payload);
+    },
+    DELETE(state: CharacterState, payload: Character) {
+      state.characters = state.characters.filter((item: Character) => {
+        return item.id !== payload.id;
+      });
+    },
+    SET_CHARACTERS(state: CharacterState, payload: Character[]) {
+      state.characters = payload;
+    },
+  },
 };
 
 export default CharacterModule;
