@@ -16,31 +16,28 @@ const CharacterModule: Module<CharacterState, RootState> = {
         characters: []
     },
     actions: {
-        async load({ commit, state }) {
-            const response: CharacterListResponse = await request.getRequest('/characters/');
-            this.commit('characters/SET_CHARACTERS', response.characters);
+        async load({ commit }) {
+            const response = await request.getRequest<CharacterListResponse>('/characters/');
+            commit('SET_CHARACTERS', response.characters);
         },
         async delete({ commit }, payload: Character) {
             await request.deleteRequest('/characters/' + payload.id, []);
             commit('DELETE', payload);
         },
         async register() {
-            const response: GetRedirectUrlResponse = await request.getRequest('/characters/auth/get-redirect-url/');
+            const response = await request.getRequest<GetRedirectUrlResponse>('/characters/auth/get-redirect-url/');
             /** @todo redirect action? */
             location.href = response.url;
         },
         async callback({ commit }, payload) {
-            const response: CharacterResponse = await request.postRequest(
+            const response = await request.postRequest<CharacterResponse>(
                 '/characters/auth/callback/', { code: payload.code }
             );
-            this.commit('ADD', response.character);
+            commit('ADD', response.character);
         },
     },
     mutations: {
         ADD(state: CharacterState, payload: Character) {
-            if (null === state.characters) {
-                state.characters = [];
-            }
             state.characters.push(payload);
         },
         DELETE(state: CharacterState, payload: Character) {
