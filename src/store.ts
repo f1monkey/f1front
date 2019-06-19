@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
+import Vuex, { StoreOptions } from 'vuex';
 import characters from '@/store/characters';
 
 Vue.use(Vuex);
@@ -8,12 +8,10 @@ export interface RootState {
   userId: number;
 }
 
-const state: RootState = {
-  userId: 1,
-};
-
-export default new Vuex.Store({
-  state,
+const store: StoreOptions<RootState> = {
+  state: {
+    userId: 1,
+  },
   mutations: {
 
   },
@@ -25,4 +23,6 @@ export default new Vuex.Store({
   modules: {
     characters,
   },
-});
+};
+
+export default new Vuex.Store<RootState>(store);
