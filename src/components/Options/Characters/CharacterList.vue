@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-loading="loading">
     <el-row>
       <el-col
         :span="4"
@@ -36,6 +36,8 @@ import { RootState } from '../../../store';
   components: {},
 })
 export default class Characters extends Vue {
+  protected loading = false;
+
   protected characterIcon(id: number) {
     return characterIcon(id, 128);
   }
@@ -60,8 +62,10 @@ export default class Characters extends Vue {
     await this.$store.dispatch('characters/delete', character);
   }
 
-  protected mounted() {
-    this.$store.dispatch('characters/load');
+  protected async mounted() {
+    this.loading = true;
+    await this.$store.dispatch('characters/load');
+    this.loading = false;
   }
 
   get characters() {
