@@ -14,7 +14,7 @@
               class="character-delete-button"
               icon="el-icon-delete"
               circle
-              @click="deleteCharacter(character)"
+              @click="confirmDelete(character)"
             ></el-button>
           </div>
           <img :src="characterIcon(character.id)">
@@ -38,6 +38,22 @@ import { RootState } from '../../../store';
 export default class Characters extends Vue {
   protected characterIcon(id: number) {
     return characterIcon(id, 128);
+  }
+
+  protected async confirmDelete(character: Character) {
+    this.$confirm('Delete this character?', 'Warning', {
+      confirmButtonText: 'OK',
+      cancelButtonText: 'Cancel',
+      type: 'warning',
+    })
+      .then(async () => {
+        await this.deleteCharacter(character);
+        this.$message({
+          type: 'success',
+          message: 'Delete completed',
+        });
+      })
+      .catch(() => {});
   }
 
   protected async deleteCharacter(character: Character) {
