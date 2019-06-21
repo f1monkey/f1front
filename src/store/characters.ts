@@ -54,6 +54,11 @@ const CharacterModule: Module<CharacterState, RootState> = {
       state.characters = payload;
     },
   },
+  getters: {
+    character: (state: CharacterState) => (id: number): Character | undefined => {
+      return state.characters.find((character) => character.id === id);
+    },
+  },
 };
 
 export default CharacterModule;
