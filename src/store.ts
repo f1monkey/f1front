@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex, { StoreOptions } from 'vuex';
 import characters from '@/store/characters';
+import search from '@/store/search';
 
 Vue.use(Vuex);
 
@@ -22,6 +23,7 @@ const store: StoreOptions<RootState> = {
   },
   modules: {
     characters,
+    search,
   },
 };
 

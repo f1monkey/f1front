@@ -1,16 +1,16 @@
 <template>
   <div>
-    <search-input></search-input>
+    <search-component></search-component>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import SearchInput from '@/components/Search/SearchInput.vue';
+import SearchComponent from '@/components/Search/Search.vue';
 
 @Component({
   components: {
-    SearchInput,
+    SearchComponent,
   },
 })
 export default class Search extends Vue {}

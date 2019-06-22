@@ -4,9 +4,9 @@ import store from '../store';
 // todo move to configuration
 const API_URL = 'http://localhost:8080';
 
-export async function getRequest<T>(url: string): Promise<T> {
+export async function getRequest<T>(url: string, params?: any): Promise<T> {
   try {
-    const result = await axios.get<T>(API_URL + url);
+    const result = await axios.get<T>(API_URL + url, { params });
 
     return result.data;
   } catch (e) {
