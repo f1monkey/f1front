@@ -1,12 +1,14 @@
 <template>
   <div id="app">
-    <el-header>
-      <app-header></app-header>
-      <top-nav></top-nav>
-    </el-header>
-    <el-main>
-      <router-view/>
-    </el-main>
+    <el-container>
+      <el-header height="100%">
+        <app-header></app-header>
+        <top-nav></top-nav>
+      </el-header>
+      <el-main>
+        <router-view/>
+      </el-main>
+    </el-container>
   </div>
 </template>
 
@@ -36,7 +38,7 @@ export default class App extends Vue {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @import 'https://unpkg.com/element-ui/lib/theme-chalk/index.css';
 
 #app {
