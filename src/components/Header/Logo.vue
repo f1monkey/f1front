@@ -19,6 +19,6 @@ export default class Logo extends Vue {}
 
 <style lang="less" scoped>
 .logo {
-  width: 200px;
+  width: 100px;
 }
 </style>

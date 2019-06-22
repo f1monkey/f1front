@@ -3,7 +3,6 @@
     <el-container>
       <el-header height="100%">
         <app-header></app-header>
-        <top-nav></top-nav>
       </el-header>
       <el-main>
         <router-view/>
@@ -15,12 +14,10 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import AppHeader from '@/components/Header.vue';
-import TopNav from '@/components/TopNav.vue';
 
 @Component({
   components: {
     AppHeader,
-    TopNav,
   },
 })
 export default class App extends Vue {
