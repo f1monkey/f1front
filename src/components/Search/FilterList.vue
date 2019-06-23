@@ -1,7 +1,6 @@
 <template>
   <div v-loading="loading">
     <h4>Filters</h4>
-    <el-divider></el-divider>
     <el-collapse>
       <el-collapse-item v-for="filter in filters" v-bind:key="filter.code" :title="filter.name">
         <filter-card :code="filter.code"/>

@@ -83,7 +83,7 @@ const SearchModule: Module<SearchState, RootState> = {
       state.results = payload;
     },
     SET_CHECKED_VALUES(state, payload: SelectedVariants) {
-      let filter = state.filters.find((filter: Filter) => {
+      const filter = state.filters.find((filter: Filter) => {
         return payload.filter.code === filter.code;
       });
 
@@ -97,6 +97,9 @@ const SearchModule: Module<SearchState, RootState> = {
   getters: {
     filter: (state: SearchState) => (code: string): Filter | undefined => {
       return state.filters.find((filter) => filter.code === code);
+    },
+    result: (state: SearchState) => (id: string): Result | undefined => {
+      return state.results.find((result) => result.id === id);
     },
   },
 };
