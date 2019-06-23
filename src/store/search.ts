@@ -11,6 +11,7 @@ export interface SearchState {
   filters: Filter[];
   query: string;
   results: Result[];
+  isSearching: boolean;
 }
 
 interface SelectedVariants {
@@ -45,6 +46,7 @@ const SearchModule: Module<SearchState, RootState> = {
     filters: [],
     query: '',
     results: [],
+    isSearching: false,
   },
   actions: {
     async loadFilters({ commit }) {
@@ -53,7 +55,9 @@ const SearchModule: Module<SearchState, RootState> = {
     },
     async search({ state, commit }) {
       const query = makeQuery(state.query, state.filters);
+      commit('SET_SEARCHING', true);
       const response = await request.getRequest<SearchResponse>('/fittings/search/', query);
+      commit('SET_SEARCHING', false);
       commit('SET_FILTERS', response.filters);
       commit('SET_RESULTS', response.results);
     },
@@ -70,7 +74,7 @@ const SearchModule: Module<SearchState, RootState> = {
       timeout = setTimeout(() => {
         dispatch('search');
       }, 500);
-    }
+    },
   },
   mutations: {
     SET_QUERY(state, payload: string) {
@@ -83,16 +87,19 @@ const SearchModule: Module<SearchState, RootState> = {
       state.results = payload;
     },
     SET_CHECKED_VALUES(state, payload: SelectedVariants) {
-      const filter = state.filters.find((filter: Filter) => {
+      const foundFilter = state.filters.find((filter: Filter) => {
         return payload.filter.code === filter.code;
       });
 
-      if (filter) {
-        filter.variants.forEach((variant: Variant) => {
+      if (foundFilter) {
+        foundFilter.variants.forEach((variant: Variant) => {
           variant.checked = payload.checkedVariantNames.indexOf(variant.name) !== -1;
         });
       }
-    }
+    },
+    SET_SEARCHING(state, payload: boolean) {
+      state.isSearching = payload;
+    },
   },
   getters: {
     filter: (state: SearchState) => (code: string): Filter | undefined => {

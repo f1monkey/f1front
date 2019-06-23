@@ -7,7 +7,7 @@
       <el-col :span="19">
         <search-input></search-input>
         <div class="margin"></div>
-        <result-list></result-list>
+        <result-list v-loading="loading"></result-list>
       </el-col>
     </el-row>
   </div>
@@ -26,7 +26,11 @@ import ResultList from '@/components/Search/ResultList.vue';
     SearchInput,
   },
 })
-export default class Search extends Vue {}
+export default class Search extends Vue {
+  get loading() {
+    return this.$store.state.search.isSearching;
+  }
+}
 </script>
 
 <style lang="less" scoped>
