@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <router-link :to="{ name: 'loadout-view', params: { id: result.id }}">
     <el-row>
       <el-col :span="6">
         <img :src="result.image" width="64">
@@ -9,7 +9,7 @@
         <span>{{ result.description }}</span>
       </el-col>
     </el-row>
-  </div>
+  </router-link>
 </template>
 
 <script lang="ts">

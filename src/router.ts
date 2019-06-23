@@ -21,18 +21,18 @@ export default new Router({
     {
       path: '/options',
       name: 'options',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "options" */ './views/Options.vue'),
     },
     {
-      path: '/search',
-      name: 'search',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "search" */ './views/Search.vue'),
+      path: '/loadouts',
+      name: 'loadouts',
+      component: () => import(/* webpackChunkName: "loadouts" */ './views/Loadouts.vue'),
+    },
+    {
+
+      path: '/loadouts/:id',
+      name: 'loadout-view',
+      component: () => import(/* webpackChunkName: "loadout" */ './views/Loadout.vue'),
     },
   ],
 });
