@@ -33,6 +33,10 @@ abstract class AbstractDb {
     }
   }
 
+  protected getVersion(): string {
+    return '' + version;
+  }
+
   protected get needUpdate(): boolean {
     return this._needUpdate;
   }

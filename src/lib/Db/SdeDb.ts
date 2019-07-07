@@ -7,8 +7,8 @@ import MarketGroup from '@/lib/Dto/Sde/MarketGroup';
 const MARKET_GROUPS_STORE_NAME = 'market-groups';
 const ITEMS_STORE_NAME = 'items';
 
-const MARKET_GROUPS_DUMP_FILE = '/sde/marketGroups.json';
-const ITEMS_DUMP_FILE = '/sde/items.json';
+const MARKET_GROUPS_DUMP_FILE = '/sde/marketGroups_%version%.json';
+const ITEMS_DUMP_FILE = '/sde/items_%version%.json';
 
 class SdeDb extends AbstractDb {
   protected _needUpdate: boolean = false;
@@ -29,7 +29,7 @@ class SdeDb extends AbstractDb {
   }
 
   protected async loadData(fileUrl: string, storeName: string) {
-    const data = await request.getRequest<Item[]>(fileUrl);
+    const data = await request.getRequest<Item[]>(this.makeFileUrl(fileUrl));
     const transaction = this.db.transaction(storeName, 'readwrite');
     const store = transaction.objectStore(storeName);
     data.forEach((item) => {
@@ -41,6 +41,10 @@ class SdeDb extends AbstractDb {
 
   protected getDbName() {
     return 'sde';
+  }
+
+  protected makeFileUrl(fileUrl: string) {
+    return fileUrl.replace('%version%', this.getVersion());
   }
 }
 
